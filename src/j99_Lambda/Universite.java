@@ -23,6 +23,8 @@ public class Universite {
 
     }
 
+    public Universite(String muğla, String matemati̇k, String s, String s1) {
+    }
 
 
     public String getUniversite() {

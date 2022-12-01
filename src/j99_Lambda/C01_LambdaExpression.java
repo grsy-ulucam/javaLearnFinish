@@ -142,4 +142,7 @@ public class C01_LambdaExpression {
     }
 
 
+    public static void yazdir(double a) {
+        System.out.println(a+ "");
+    }
 }
