@@ -15,5 +15,10 @@ public class deneme2 {
         int x=10;
         int y=12;
         System.out.println(x+y);
+        int w=10;
+        int q=12;
+        System.out.println(w+q);
+
+
     }
 }
