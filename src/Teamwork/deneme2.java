@@ -10,5 +10,6 @@ public class deneme2 {
         int d=12;
         System.out.println(c+d);
 
+
     }
 }
