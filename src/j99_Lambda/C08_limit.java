@@ -35,8 +35,8 @@ public class C08_limit {
                 stream().
                 sorted(Comparator.comparing(String::length).
                         reversed()).
-                limit(1).
-                toArray();
+                limit(1).//limit(a) akısdan cıkan elemanları a parametresine gore ilk a elamanı alır.
+                toArray();//ARRAYA ATAMA YAPILDI..
         System.out.println(Arrays.toString(enbyKrktrarr));
 
         Optional<String>enBykKarktr2=menu.stream().sorted(Comparator.comparing(String::length).reversed()).findFirst();//akısdaki ilk 1 eleman alındı

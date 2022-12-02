@@ -14,10 +14,12 @@ public class C12_textRead {
        Path grsy= Path.of("src\\j99_Lambda\\grsy");//erişilecek dosyanın path tanımlanacak
 
         Stream<String>akıs= Files.lines(grsy);
+
         Stream<String>akıs1= Files.lines(Path.of("src\\j99_Lambda\\grsy"));
         akıs.//erişimi verilen dosyadaki satırlar akışa alındı.
                 forEach(System.out::println);//akışdaki satırlar priny edildi .
         System.out.println("******");
+
         //task 02 -> gsry dosyasındaki büyük harfleri okuyunuz .Consola yazdırınız.
 
   Files.lines(Paths.get("src\\j99_Lambda\\grsy")).//akışa alınan path deki satırlar akışa alıondı

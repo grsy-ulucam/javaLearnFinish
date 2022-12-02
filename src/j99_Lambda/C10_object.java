@@ -100,7 +100,7 @@ public  static  boolean  ogrcSys110azMi( List<Universite>unv){
     public static  int notOrt63BykOgrcSysToplam(List<Universite>unv){
 
         return unv.stream().filter(t->t.getNotOrt()>63).
-                mapToInt(t->t.getOgrcSayisi()).//akısdaki elemanların data type'nı parametredeki değere göre update eder
+                mapToInt(t->t.getOgrcSayisi()).// collect(Collectors.coll)-> Collector class'dan call edilen coll. meth ile akıs elemanları atanır
                 sum();
     }
 
