@@ -18,6 +18,9 @@ public class deneme2 {
         int w=10;
         int q=12;
         System.out.println(w+q);
+        String a1="ali";
+        String b1="kaçar";
+        System.out.println("a.contains(b) = " + a1.contains(b1));
 
 
     }
