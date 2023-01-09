@@ -14,29 +14,24 @@ public class teamwork {
         System.out.println("\n*****");
         ElemanToplamYazdır(numbers);
         System.out.println("\n*****");
-        tekKareBkPrint( numbers);
-
-
-
+        tekKareBkPrint(numbers);
     }
+
     //Task1 : "Functional Programming"  kullanarak list elemanlarının çiftlerini  aynı satirda aralarında bosluk olacak sekilde print ediniz
-
-
     public static void ciftYazdır(List<Integer> numbers) {
-
         numbers.
                 stream().
-                filter(t -> t % 2 == 0).
+                filter(t -> t % 2 == 0).//ŞART ÇİFT Mİ?
                 forEach(t -> System.out.print(t + " "));
     }
-    // Task2 : Functional Programming ile listin cift elemanlarinin  karelerini ayni satirda aralarina bosluk bırakarak print ediniz
 
+    // Task2 : Functional Programming ile listin cift elemanlarinin  karelerini ayni satirda aralarina bosluk bırakarak print ediniz
     public static void ciftElemanKareYazdır(List<Integer> numbers) {
 
         numbers.
                 stream().
-                filter(t -> t % 2 == 0).
-                map(t -> t * t).
+                filter(t -> t % 2 == 0).//ŞART ÇİFT Mİ?
+                map(t -> t * t).//YENİ DEĞER ATAMASI
                 forEach(C01_LambdaExpression::yazdir);
     }
     // Task 3: Functional Programming ile listin tek elemanlarinin  kuplerinin bir fazlasini ayni satirda aralarina bosluk birakarak print ediniz.
@@ -52,15 +47,21 @@ public class teamwork {
 
     public static void ElemanToplamYazdır(List<Integer> numbers) {
 
-        Optional<Integer> toplam = numbers.stream().reduce(Integer::sum);
-        System.out.println(toplam);
+        Optional<Integer> toplam=numbers.
+                stream().
+                reduce(Integer::sum);//NULL DEĞER OLMASINA KARŞI OPTİNAL ATAMASI YAPILDI!!!REDUCE->AZALTMA İŞLEMİ YAPIDI...
+
     }
     // Task 5 : list'in tek  elemanlarinin kareleri ni buykten kucuge  print ediniz.
 
-
     public static void tekKareBkPrint(List<Integer> numbers) {
 
-        numbers.stream().filter(t->t%2==1).map(t->t*t).sorted(Comparator.reverseOrder()).forEach(t-> System.out.print(t+" "));
+        numbers.
+                stream().
+                filter(t -> t % 2 == 1).//tek mi veya çift öi kontrol edildi
+                map(t -> t * t).//karesi alındı
+                sorted(Comparator.reverseOrder()).//REVERSEORDER ->TERS SIRALAMA
+                forEach(t -> System.out.print(t + " "));
 
 
     }

@@ -1,0 +1,366 @@
+
+Stream API Örnekleri
+
+Bu kısımda çeşitli Stream API metodları ile küçük uygulamalar yer almaktadır.
+
+1-FOREACH
+
+#Stream içerisindeki yığınsal veriyi tek tek tüketmek için yapılandırılmıştır. Consumer arayüzü türünden bir parametre bekler.
+
+List names = Arrays.asList("Ali","Veli","Selami","Cem","Zeynel","Can","Hüseyin");
+
+Stream stream = names.stream();
+
+stream.forEach(name -> {
+    System.out.println(name);
+});
+
+// veya stream.forEach(System.out::println);
+
+2-FILTER
+
+#Stream içerisindeki yığınsal veri üzerinde süzme işlemi yapar. Predicate arayüzü türünden bir parametre ile filtreleme işlemini yapar.
+
+List names = Arrays.asList("Ali", "Veli", "Selami", "Cem", "Zeynel", "Can", "Hüseyin");
+
+Stream stream = names.stream(); (1) //nesne elde ediliyor
+
+Predicate predicate = name -> name.length() < 4; (2) //sorgu hazırlanıyor
+
+Stream filtered = stream.filter(predicate); (3) //süzme işlemi yapılıyor
+
+filtered.forEach(System.out::println); (4) //listeleme yapılıyor
+
+   1.adım Stream nesnesi elde ediliyor.
+   2.adım Predicate sorgusu hazırlanıyor
+   3.adım Süzme işlemi yapılıyor, yeni bir Stream nesnesi sunuluyor.
+   4.adım Listeleniyor. [Ali, Cem, Can]
+
+Note
+	Stream nesneleri tek kullanımlıktır. Stream nesnesinin çoğu metodu yeni bir Stream nesnesi sunmaktadır. Bu sebeple tüm operasyonlar zincirlemeli olarak yapılabilmektedir.
+Örneğin;
+
+names
+    .stream()
+    .filter(name -> name.length() == 4)
+    .forEach(System.out::println);
+
+3-DISTINCT
+
+Bir Stream içerisinden tekrarlı veriler çıkarılmak isteniyorsa distinct metodundan faydalanılabilir.
+
+IntStream stream = IntStream.of(1, 1, 2, 3, 5, 8, 13, 13, 8); (1)
+
+stream
+    .distinct()
+    .forEach(System.out::println); (2)
+
+    IntStream nesnesi
+    [1,2,3,5,8,13]
+
+4-SORTED
+
+Stream içerisindeki yığınsal verinin sıralanmış Stream nesnesini döndürür.
+
+IntStream stream = IntStream.of(13, 1, 3, 5, 8, 1, 13, 2, 8); (1)
+
+stream
+        .sorted()
+        .forEach(System.out::println); (2)
+
+    IntStream nesnesi
+    [1,1,2,3,5,8,8,13,13]
+
+5-LİMİT
+
+Bir Stream yığını içerisindeki ilk N veri barındıran yeni bir Stream nesnesi sunmaktadır.
+
+LongStream range = LongStream.range(1, 10000); (1)
+
+        range
+                .limit(10)
+                .forEach(System.out::println); (2)
+
+    (1,…,10000) arasını içeren bir Stream
+    İlk 10 veri : [1,…,10]
+
+6-COUNT
+
+Stream içerisindeki eleman sayısını hesaplar.
+
+IntStream range = IntStream.range(1, 10);
+IntStream rangeClosed = IntStream.rangeClosed(1, 10);
+
+System.out.println(range.count()); (1)
+System.out.println(rangeClosed.count()); (2)
+
+    9
+    10
+
+7-COLLECT
+
+Stream türünden nesneler, yığın verileri temsil eden özel nesnelerdir. Fakat Stream biçimi bir veri yapısı sunmamaktadır. collect metodu ağırlıklı olarak , Stream nesnelerini başka biçimdeki bir nesneye, veri yapısına dönüştürmek için kullanılmaktadır.
+
+Stream#collect metodu Collector türünden bir parametre kabul etmektedir. Bu parametre ile istendik türe dönüşüm sağlanmaktadır. Collector türünden arayüzler, Collectors sınıfının çeşitli statik metodlarıyla elde edilebilmektedir.
+
+List names = Arrays.asList("Ali", "Veli", "Selami", "Veli", "Selami", "Can", "Hüseyin");
+
+
+List list = names.stream().collect(Collectors.toList()); (1)
+
+Set set = names.stream().collect(Collectors.toSet()); (2)
+Stream nesnesinden List nesnesi üretir.List[“Ali”, “Veli”, “Selami”, “Veli”, “Selami”, “Can”, “Hüseyin”]
+Stream nesnesinden Set nesnesi üretir.Set[“Ali”, “Veli”, “Selami”,”Can”, “Hüseyin”]
+
+8-MAP
+
+Stream içindeki yığınsal olarak bulunan her bir veriyi dönüştürmeye olanak tanır. Dönüştürüm işlemi Stream içerisindeki her bir öğe için ayrı ayrı yapılmaktadır. Stream#map metodu Function türünden bir parametre beklemektedir.
+Örnek 1;
+
+Bir List içindeki her bir öğenin harflerini büyütelim.
+
+List names = Arrays.asList("Ali", "Veli", "Selami", "Cem");
+
+Stream stream = names.stream(); (1)
+Stream upperStream= stream.map(name -> name.toUpperCase()); (2)
+List upperNames = upperStream.collect(Collectors.toList()); (3)
+
+    Stream nesnesi elde ediliyor
+    Her bir ismin harfleri büyütülüyor
+    List[“ALİ”,”VELİ”,”SELAMİ”,”CEM”]
+
+Örnek 2;
+
+1,5 arası sayıların karelerini hesaplayalım.
+
+IntStream
+        .rangeClosed(1, 5)
+        .map(n -> n*n)
+        .forEach(System.out::println); (1)
+
+    [1, 4, 9, 16, 25]
+
+
+9-REDUCE ->TOPLAMA ,ÇIKARMA ....
+
+Bir Stream içerisindeki verilerin teker teker işlenmesidir. Teker teker işleme sürecinde, bir önceki adımda elde edilen sonuç bir sonraki adıma girdi olarak sunulmaktadır. Bu sayede yığılmlı bir hesaplama süreci elde edilmiş olmaktadır.
+
+Stream#reduce metodu ilk parametrede identity değeri, ikinci parametrede ise BinaryOperator türünden bir nesne kabul etmektedir.
+
+reduce işleminde bir önceki hesaplanmış değer ile sıradaki değer bir işleme tabi tutulmaktadır. İşleme başlarken bir önceki değer olmadığı için bu değer identity parametresinde tanımlanmaktadır.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+kod parçası görmekteyiz. Ayrıca bu işlemlerin paralel Stream nesnesiyle yapılmak istendiğini görüyoruz.
+
+
+
+
+
+
+
+
+
+
+h metodu doğası gereği öğeleri ardışık çıktılamalıdır. İşte tam da bu adımda elimizdeki paralel Stream nesnesi ardışıl Stream nesnesine dönüştürülmektedir ve ardından forEach işlemini koşturmaktadır.
+
+ımında paralel koşturma yapılacağı anlamını taşımamaktadır.
+
+
+se yapılacak işlemin emir verilir verilmez yapılmasını temsilen kullanılır.
+
+oşturulmaktadır. Lazy davranışlı olan zincirli görevler, bir Eager operasyona gelene kadar koşturulmamaktadır.
+
+
+
+
+
+
+
+
+
+i Lazy işlemlerdir. Kod parçası bu haliyle çalıştırıldığında ne bir filtreleme ne de bir dönüştürme işlemi yapılacaktır. Burada yapılan sadece Stream nesnesini hazırlamaktır. Lazy işlemler gerekmedikçe işleme konulmamaktadır.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+karşılaşırsa, önceki zincirlerde biriken Lazy işlemleri de harekete geçirecektir. Yani (4) numaradaki işlem, (1)(2)(3) numaralı işlemlerin tetikleyicisi konumundadır.

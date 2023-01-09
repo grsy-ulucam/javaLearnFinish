@@ -4,7 +4,7 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 public class C11_stream_iterator {
-    //range(startInclusive,endExclusive);-> 1'lik artımlı bir adımla startInclusive'den (dahil) endExclusive'e (exclusive) kadar sıralı bir IntStream return eder.
+
     public static void main(String[] args) {
 //TASK 01 --> Structured Programming ve Functional Programming ile 1'den x'e kadar tamsayilari toplayan bir program create ediniz.
 
