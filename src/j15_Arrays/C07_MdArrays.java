@@ -9,6 +9,9 @@ public class C07_MdArrays {
                 {101}//2. kat
         };//3 katlı apt
 
+
+
+
         int toplam=0;
 
         for (int kat = 0; kat < apt.length; kat++) {
