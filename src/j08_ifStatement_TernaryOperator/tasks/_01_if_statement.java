@@ -10,7 +10,14 @@ public class _01_if_statement {
 
         //Kodu aşağıya yazınız.
 
+int a=35;
+int b=23;
 
+if (a>b){
+    System.out.println("int a is greater than b");
+} else if (a<b) {
+    System.out.println("int a is smaller than b");
+}
 
 
     }

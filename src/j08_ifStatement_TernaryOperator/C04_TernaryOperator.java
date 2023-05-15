@@ -12,7 +12,9 @@ public class C04_TernaryOperator {
         int agaSayisi = sc.nextInt();
         System.out.println(agaSayisi > 9 ? " sayı iki veya daha fazla basamaklı  " : "sayı tek basamaklı");
 
-      String sonuc =( agaSayisi > 9 ||agaSayisi<-9)? " sayı iki veya daha fazla basamaklı  " : "sayı tek basamaklı";
+     // String sonuc =( agaSayisi > 9 ||agaSayisi<-9)? " sayı iki veya daha fazla basamaklı  " : "sayı tek basamaklı";
+
+        String sonuc=(agaSayisi>9|| agaSayisi<-9)?" sayı iki veya daha fazla basamaklı  " : "sayı tek basamaklı";
         System.out.println(sonuc);
 
 

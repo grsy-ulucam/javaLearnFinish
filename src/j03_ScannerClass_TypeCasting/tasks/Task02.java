@@ -1,5 +1,7 @@
 package j03_ScannerClass_TypeCasting.tasks;
 
+import java.util.Scanner;
+
 public class Task02 {
     public static void main(String[] args) {
         /*
@@ -17,5 +19,25 @@ public class Task02 {
          *
          *
          */
+
+        Scanner scanner=new Scanner(System.in);
+
+        System.out.println("Enter height :");
+
+        float myHeight=scanner.nextFloat();
+
+        System.out.println("Enter weight :");
+
+        float myWeight=scanner.nextFloat();
+
+        float Vki01=myWeight/(myWeight*myWeight);
+
+        System.out.println("Vki01 = " + Vki01);
+
+        int Vki02= (int) (myWeight/(myWeight*myWeight));
+
+        System.out.println("Vki02 = " + Vki02);
+
+
     }
 }

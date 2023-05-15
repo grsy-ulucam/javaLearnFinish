@@ -10,5 +10,9 @@ public class _06_String_methods03 {
 
         //Kodu aşağıya yazınız.
 
+        String a="paper";
+
+        System.out.println(a.toUpperCase());
+
     }
 }
